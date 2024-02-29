@@ -84,7 +84,8 @@ function createElementProduct(tagName, config, textContent) {
 
 function filter(keyWord, array) {
   const selectedCategory = categoryList.value
-  const searchInputValue = searchInput.value
+  const searchInputValue = normalize(searchInput.value)
+  let keyWordNormalized
   if (keyWord.length > 0) {
     keyWordNormalized = normalize(keyWord)
   }

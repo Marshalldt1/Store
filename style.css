@@ -41,7 +41,7 @@ main {
   background-color: #E1AFD1;
   border-radius: 0.4rem;
   margin: 0 auto;
-
+  width: 900px;
 }
 main aside, main section {
   padding: 0.4rem;
