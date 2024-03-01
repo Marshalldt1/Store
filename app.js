@@ -13,7 +13,7 @@ async function fetchUrl(json) {
   try {
     const response = await fetch(json)
     if (!response.ok) {
-      throw new Error()
+      throw new Error('motivo')
     }
     const responseJson = await response.json()
 
