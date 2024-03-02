@@ -54,7 +54,8 @@ main aside {
 main section {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
+  align-content: start;
   flex: 1;
   overflow-y: auto;
   max-width: 100%;
@@ -240,6 +241,7 @@ footer p{
     gap: 2rem;
     padding: 0;
     border: 1px solid black;
+    max-height: 95%;
   }
   main aside {
     border-bottom: 1px solid black;
@@ -268,5 +270,8 @@ footer p{
   }
   div.productContainer .less {
     right: 35px;
+  }
+  .cartProducts {
+    max-height: 80%;
   }
 }
