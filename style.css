@@ -239,6 +239,7 @@ footer p{
 }
 @media (max-width:600px) {
   #page{
+    height: 100dvh;
     padding: 2rem 0;
   }
   header {
