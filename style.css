@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: Open sans;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -20,14 +20,25 @@ body {
   grid-template-rows: max-content 1fr max-content;
 }
 header{ 
-  margin: 1rem;
   text-align: center;
   display: flex;
   justify-content: center;
   gap: 2rem;
+  align-items: center;
 }
 header {
   font-size: 2em;
+}
+header h1 {
+  font-family: Open Sans, sans-serif; 
+  padding: 1rem;
+  color: black;
+  font-weight: 500;
+  font-style: italic;
+}
+header h1 strong {
+  font-style: normal;
+  color: #7469B6;
 }
 header img{
   height: 40px;
@@ -203,7 +214,7 @@ form input {
 footer {
   padding: 1.0rem;
 }
-footer p{
+footer p{  
   font-size: 1.6rem;
   text-align: center;
 }
