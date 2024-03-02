@@ -73,15 +73,6 @@ function createProduct(productName, photoProduct, productPrice) {
   return div
 }
 
-function createElementProduct(tagName, config, textContent) {
-  const element = document.createElement(tagName)
-  element.textContent = textContent
-  for (const attribute in config) {
-    element.setAttribute(attribute, config[attribute])
-  }
-  return element
-}
-
 function filter(keyWord, array) {
   const selectedCategory = categoryList.value
   const searchInputValue = normalize(searchInput.value)
@@ -90,17 +81,17 @@ function filter(keyWord, array) {
     keyWordNormalized = normalize(keyWord)
   }
   const productsNormalized = array.map(({ name, price, type, image }) => {
-    return { name: normalize(name), price: price, image: image, type: normalize(type) }
+    return { name: name, price: price, image: image, type: normalize(type) }
   })
   if ((searchInputValue === '' && selectedCategory == 'todos')) {
-    return productsNormalized
+    return array
   }
   return productsNormalized.filter(({ name, type }) => {
     if (selectedCategory == 'todos') {
-      return name.includes(searchInputValue)
+      return normalize(name).includes(searchInputValue)
     }
     if (searchInputValue.length > 0) {
-      return type.includes(selectedCategory) && name.includes(searchInputValue)
+      return type.includes(selectedCategory) && normalize(name).includes(searchInputValue)
     }
     return type.includes(selectedCategory)
   })
@@ -149,30 +140,23 @@ function handleProductQuantity(productName, priceProduct, operator) {
 }
 
 function createProductListItem(productName, priceProduct) {
-  const li = document.createElement('li');
-  li.dataset.productName = productName;
+  if (!typeof productName === "String" && !typeof priceProduct === 'number') {
+    throw new Error('productName dont is string e priceProduct dont is number')
+  }
+
+  const li = createElementProduct('li', { "data-product-Name": productName })
   const div = document.createElement('div')
   const div2 = document.createElement('div')
-
-  const span = document.createElement('span');
-  span.textContent = 1 + ' un.';
-  span.dataset.price = priceProduct
-  span.classList.add('quantity');
-  const span2 = document.createElement('span');
-  span2.textContent = ' - R$ ' + priceProduct;
+  const span = createElementProduct('span', {'data-price':priceProduct, 'class':'quantity'},1 + ' un.')
   span.classList.add('price');
+  const span2 = createElementProduct('span', {},' - R$ ' + priceProduct)
+  const p = createElementProduct('p', {},productName)
+  const buttonRemove = createElementProduct('button', {},"X" );
+  const buttonLess = createElementProduct('button', {}, '-' )
+  const buttonPlus = createElementProduct('button', {}, '+' )
 
-  const p = document.createElement('p');
-  p.textContent = productName;
-  span.dataset.price = priceProduct;
-  const button = document.createElement('button');
-  const buttonLess = document.createElement('button');
-  const buttonPlus = document.createElement('button');
-  buttonLess.textContent = '-'
-  buttonPlus.textContent = '+'
-  button.textContent = "X";
 
-  button.addEventListener('click', (e) => {
+  buttonRemove.addEventListener('click', (e) => {
     const li = e.target.closest('li');
     const productPrice = Number(li.querySelector('.price').dataset.price);
 
@@ -196,7 +180,7 @@ function createProductListItem(productName, priceProduct) {
   div2.appendChild(p);
   div.appendChild(buttonPlus)
   div.appendChild(buttonLess)
-  div.appendChild(button);
+  div.appendChild(buttonRemove);
   li.appendChild(div2)
   li.appendChild(div)
   listProductsCart.appendChild(li);
@@ -220,4 +204,13 @@ function updateProductQuantity(productLi, isDecrement) {
   if (priceTotal <= 0) {
     priceTotal = 0;
   }
+}
+
+function createElementProduct(tagName, config, textContent) {
+  const element = document.createElement(tagName)
+  element.textContent = textContent
+  for (const attribute in config) {
+    element.setAttribute(attribute, config[attribute])
+  }
+  return element
 }
